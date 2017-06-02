@@ -11,6 +11,26 @@ import ctypes
 import time
 from myDeezerApp import *
 
+global project_location
+global gladys_location
+
+# project_location = '/home/pklz6035/Travail/deezer/PythonSampleApp'
+project_location = "."
+
+# Lecture de la localisation de Gladys
+with open("./config.json") as data_file:
+	data = json.load(data_file)
+gladys_location = data["gladys"]["location"]
+
+global logfile
+global jsonfile
+logfile = '/tmp/gladys.log'
+jsonfile = '/tmp/gladys.json'
+
+global access_token
+access_token = "oWAz08VJzJKCdoahBePpfD4zCzpx"
+
+
 def launch_server():
 	# Lancement du serveur nodejs
 	subprocess.call(project_location + "/start_gladys.sh " + gladys_location, shell=True)
@@ -160,23 +180,6 @@ def main():
 	if len(sys.argv) != 1:
 		print "ERROR : No arguments required"
 		return 1
-
-	global project_location
-	global gladys_location
-
-	# A CHANGER !
-	# For example : /home/USER/project_folder
-	project_location = '/home/pklz6035/Travail/deezer/PythonSampleApp'
-	# For example : /usr/lib/node_modules/gladys
-	gladys_location = '/usr/lib/node_modules/gladys'
-
-	global logfile
-	global jsonfile
-	logfile = '/tmp/gladys.log'
-	jsonfile = '/tmp/gladys.json'
-
-	global access_token
-	access_token = "oWAz08VJzJKCdoahBePpfD4zCzpx"
 
 	# Lancement du serveur gladys nodejs
 	launch_server()
