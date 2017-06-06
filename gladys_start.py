@@ -10,6 +10,7 @@ import sys
 import ctypes
 import time
 from myDeezerApp import *
+from remote_control import *
 
 global project_location
 global gladys_location
