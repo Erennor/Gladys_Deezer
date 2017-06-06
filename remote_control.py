@@ -36,6 +36,7 @@ def volume_plus():
 def volume_moins():
 	set_command(114, 0)
 
+
 # on_off()
 # ch_plus()
 
