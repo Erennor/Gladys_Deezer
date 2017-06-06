@@ -36,7 +36,7 @@ def volume_plus():
 def volume_moins():
 	set_command(114, 0)
 
-on_off()
+# on_off()
 # ch_plus()
 
 # urllib2.urlopen(cmd_url).read()
