@@ -12,14 +12,31 @@ tv_host = data["remote"]["host"]
 global cmd_url
 cmd_url = "http://" + tv_host + ":8080/remoteControl/cmd?operation=01"
 
-def get_command():
-	pass
+def get_box_state():
+	state_json = urllib2.urlopen("http://192.168.1.27:8080/remoteControl/cmd?operation=10").read()
+	return state_json
 
 def set_command(key, mode):
 	urllib2.urlopen(cmd_url + "&key=" + str(key) + "&mode=" + str(mode)).read()
 
 def on_off():
 	set_command(116, 0)
+
+def decodeur_on():
+	state = get_box_state()
+	state = json.loads(state)
+	state = state["result"]["data"]["activeStandbyState"]
+	if state == "1":
+		# La TV est éteinte
+		set_command(116, 0)
+
+def decodeur_off():
+	state = get_box_state()
+	state = json.loads(state)
+	state = state["result"]["data"]["activeStandbyState"]
+	if state == "0":
+		# La TV est allumée
+		set_command(116, 0)
 
 def ch_plus():
 	set_command(402, 0)
@@ -36,9 +53,23 @@ def volume_plus():
 def volume_moins():
 	set_command(114, 0)
 
+def menu():
+	set_command(139, 0)
 
-# on_off()
-# ch_plus()
+def back():
+	set_command(158, 0)
+
+def vod():
+	set_command(393, 0)
+
+def touche_num(num):
+	num_length = len(str(num))
+	# print num_length
+	for i in str(num):
+		# print i
+		set_command(512 + int(i), 0)
+
+# vod()
 
 # urllib2.urlopen(cmd_url).read()
 

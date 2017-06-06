@@ -10,7 +10,7 @@ import sys
 import ctypes
 import time
 from myDeezerApp import *
-from remote_control import *
+# from remote_control import *
 from text_recognition import *
 
 global project_location
@@ -73,7 +73,7 @@ def add_input(input_queue):
         	input_queue.put("P\n")
         if user_input == "start" or user_input == "stop":
         	input_queue.put("S\n")
-        if user_input == "quitter" or user_input == "arrête la musique" or user_input == "coupe la musique":
+        if user_input == "quitter" or user_input == "arrête la musique" or user_input == "coupe la musique" or user_input == "éteins la musique":
         	input_queue.put("Q\n")
         	break
         if user_input == "suivant" or user_input == "musique suivante":
