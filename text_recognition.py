@@ -91,7 +91,7 @@ def text_recognition(text):
 		return "null_command"
 
 	# Eteindre la TV
-	if text == "éteins la tv":
+	if text == "éteins la tv" or text == "coupe la tv":
 		decodeur_off()
 		return "null_command"
 

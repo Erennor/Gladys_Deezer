@@ -10,13 +10,11 @@ import sys
 import ctypes
 import time
 from myDeezerApp import *
-# from remote_control import *
 from text_recognition import *
 
 global project_location
 global gladys_location
 
-# project_location = '/home/pklz6035/Travail/deezer/PythonSampleApp'
 project_location = "."
 
 # Lecture de la localisation de Gladys
