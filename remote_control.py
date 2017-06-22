@@ -5,19 +5,38 @@ import json
 import urllib2
 import time
 import sys
+import subprocess
 
-reload(sys)  # Reload does the trick!
+# curl -k -H "Authorization: 68d333d8-70e6-11e6-8523-00163e41c546" "https://gateway.ola.qualif.orange.fr/v2/query?user_id=ff&app_id=2525&device_id=555&message=lance%20le%20flow&user_deezerToken=frBt22Yb5iPIv7djkBXRc8b2lZymj2L3SqKUOw2lNyR5TDgFVF"
+
+reload(sys)
 sys.setdefaultencoding('UTF8')
 if len(sys.argv) != 1:
 	print "ERROR : No arguments required"
 
-with open("./config.json") as data_file:
-	data = json.load(data_file)
-TV_HOST = data["remote"]["host"]
+# with open("./config.json") as data_file:
+# 	data = json.load(data_file)
+# TV_HOST = data["remote"]["host"]
+TV_HOST = "192.168.1.27"
 
 CMD_URL = "http://" + TV_HOST + ":8080/remoteControl/cmd?operation="
 
+def get_response(text):
+	text = text.replace(" ", "%20")
+	CMD_CURL = "curl -k -H \"Authorization: 68d333d8-70e6-11e6-8523-00163e41c546\" \"https://gateway.ola.qualif.orange.fr/v2/query?user_id=ff&app_id=2525&device_id=555&message=" + text + "&user_deezerToken=frBt22Yb5iPIv7djkBXRc8b2lZymj2L3SqKUOw2lNyR5TDgFVF\""
+	# print CMD_CURL
+	response = subprocess.check_output(CMD_CURL, shell=True)
+	# print
+	# print 
+	# print
+	# print response
+	# response = json.loads(response)
+	# epgid = response["result"]["epgId"]
+	# print epgid
+	return response
+
 def get_box_state():
+	# http://192.168.1.27:8080/remoteControl/cmd?operation=10
 	state_json = urllib2.urlopen(CMD_URL + "10").read()
 	return state_json
 
@@ -162,7 +181,16 @@ def key_word(word):
 		key_letter(c)
 
 def zapping(epg_id, uui):
-	urllib2.urlopen("http://192.168.1.27:8080/remoteControl/cmd?operation=09&epg_id=*******192&uui=1").read()
+	# uui for universe
+	# epg_id doit faire 10 caracteres de long
+	epg_id_filled = ""
+	for i in range(0, 10 - len(str(epg_id))):
+		epg_id_filled = epg_id_filled + "*"
+
+	epg_id_filled = epg_id_filled + str(epg_id)
+	print CMD_URL + "09&epg_id=" + epg_id_filled + "&uui=" + str(uui)
+	urllib2.urlopen(CMD_URL + "09&epg_id=" + epg_id_filled + "&uui=" + str(uui)).read()
+	# urllib2.urlopen("http://192.168.1.27:8080/remoteControl/cmd?operation=09&epg_id=*******192&uui=1").read()
 
 # Affiche les films à l'affiche dans la vod
 def vod_films_a_l_affiche():
@@ -182,6 +210,7 @@ def vod_recherche_directe(word):
 	vod_recherche()
 	key_word(word)
 
+# get_response("zappe sur TF1")
 # vod_recherche_directe("le prénom")
 
 # numéro_mode :

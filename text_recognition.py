@@ -86,7 +86,7 @@ def text_recognition(text):
 			state = json.loads(state)
 			context = state["result"]["data"]["osdContext"]
 			if context == "HOMEPAGE":
-				menu()
+				key_menu()
 				break
 		return "null_command"
 
@@ -98,11 +98,30 @@ def text_recognition(text):
 	# Mettre une chaine
 	if text[:8] == "mets la ":
 		num = get_value_from_text(text[8:])
-		touche_num(num)
+		key_menu()
+		key_num(num)
+		key_ok()
+		return "null_command"
 	# Correction du au probleme de reconnaissance vocale
 	if text[:7] == "mail à ":
 		num = get_value_from_text(text[7:])
-		touche_num(num)
+		key_menu()
+		key_num(num)
+		key_ok()
+		return "null_command"
+
+	# Recherche de films sur la vod
+	if text[:10] == "recherche " and text[len(text) - 10:] == " sur la TV":
+		film_name = text[10:len(text) - 10]
+		vod_recherche_directe(film_name)
+
+	# Zapper sur une chaine
+	if text[:10] == "zappe sur ":
+		response = get_response(text)
+		response = json.loads(response)
+		epgid = response["result"]["epgId"]
+		print epgid
+		zapping(epgid, 1)
 
 	return "null_command"
 
