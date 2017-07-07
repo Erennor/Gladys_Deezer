@@ -17,6 +17,7 @@ global gladys_location
 
 project_location = "."
 
+# A MODIFIER
 gladys_location = "/usr/lib/node_modules/gladys"
 
 global logfile

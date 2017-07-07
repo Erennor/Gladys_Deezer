@@ -15,7 +15,8 @@ Utilisation de gladys pour jouer de la musique et la radio par commande vocale.
 	5. $ git clone 
 	6. Copier les fichiers du projet de façon à ce qu'ils se trouvent dans le dossier PythonSample du Deezer Native SDK Sample
 	7. $ cd native-sdk-samples/PythonSample/
-	8. $ python gladys_start.py 		# Le deamon est alors lancé
+	8. Modifier l'emplacement de la variable gladys_location dans gladys_start.py
+	9. $ python gladys_start.py 		# Le deamon est alors lancé
 
 ## Utilisation :
 	"Gladys, joue du ACDC"
