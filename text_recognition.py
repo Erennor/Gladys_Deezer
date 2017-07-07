@@ -5,7 +5,7 @@ import subprocess
 import json
 import urllib2
 import time
-from remote_control import *
+# from remote_control import *
 
 def get_value_from_text(text):
 	# Correction lors de la lecture des valeurs
@@ -19,8 +19,7 @@ def get_value_from_text(text):
 	return text
 
 def text_recognition(text):
-	# print "TEXT RECOGNITION"
-	# print text
+	
 	# Jouer un artiste
 	if text[:8] == "joue du ":
 		artist = text[8:].replace(" ", "+")

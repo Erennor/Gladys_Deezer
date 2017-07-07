@@ -17,16 +17,14 @@ global gladys_location
 
 project_location = "."
 
-# Lecture de la localisation de Gladys
-with open("./config.json") as data_file:
-	data = json.load(data_file)
-gladys_location = data["gladys"]["location"]
+gladys_location = "/usr/lib/node_modules/gladys"
 
 global logfile
 global jsonfile
 logfile = '/tmp/gladys.log'
 jsonfile = '/tmp/gladys.json'
 
+# token de test
 global access_token
 access_token = "oWAz08VJzJKCdoahBePpfD4zCzpx"
 
@@ -126,8 +124,6 @@ def main():
 	launch_server()
 
 	while True:
-		# time.sleep(1)
-		# print "Reading..."
 		text = read_line()
 		track = text_recognition(text)
 
